@@ -58,18 +58,19 @@ public class PlayerController : MonoBehaviour
         //09-01-2020 dd-mm-yyyy
 
         //# //The number here is where will it betriggered and is think is the MainCamera DOES NOT change position.
-            //# if (transform.position.x > 11.3f)
-            //# {
-            //# transform.position = new Vector3(-11.3f, transform.position.y, 0);
-            //# }
-            //# else if (transform.position.y < -11.3f)
-            //# {
-            //# transform.position = new Vector3(transform.position.x, 11.3f, 0);
-            //# }
+        //# if (transform.position.x > 11.3f)
+        //# {
+        //# transform.position = new Vector3(-11.3f, transform.position.y, 0);
+        //# }
+        //# else if (transform.position.x < -11.3f)
+        //# {
+        //# transform.position = new Vector3(11.3f, transform.position.y, 0);
+
+        //# }
 
         #endregion
 
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -9, 9), Mathf.Clamp(transform.position.y, -3.8f, 3), 0);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -19, 19), Mathf.Clamp(transform.position.y, -3.8f, 3), 0);
         if (transform.position.y > 5.5)
         {
             transform.Translate(new Vector3(horizontalInput , 0, 0) * Time.deltaTime);
