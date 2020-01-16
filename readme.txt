@@ -1,14 +1,10 @@
 Hi! 
-There is some change I made. Since lot in the course is challenge. I made some things as mine.
+Welcome to the branch "Framework1". There is all the change added. 
 
-1- I haven't applied the code to make the warp/tp effect when the "player ship" pass the X borders. I do not feel like it adds anything to the gameplay.
-1.1- I code it, but put it in comment to disable it.
+The code is really not the cleanest.
 
-2- I haven't applied the code to make the warp/tp effect when the "ennemy ship" pass the Y border at the bottom. I do not feel like it adds anything to the gameplay. 
-
-3- The Speed Upgrade: I change it to change the Fire Rate instead of ship movement speed.
-
-4- The meteorite as been added as the course says, but I would have change it for a screen to pess "fire" to start. Then the metorite spawn more frequantly than enemy ships.
+I NEED to da a better Loot Table.
+There is 2 known Bugs for know.
 
 
-IF there is any change or way to aproach a problem that should be change. Even if is pass the test. Please feel free the comment so I can learn from it.
+IF there is any change or way to aproach a problem that should be change. Even if good enough for passing the test. Please feel free the comment so I can learn from it. My Pseudo on Discord Mickplouffe#1342
