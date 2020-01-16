@@ -130,5 +130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f14739f575ede4c964a480294c24c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fallingSpeed: 2
+  _fallingSpeed: 1
+  _spawnChanceRate: 0.3
   _getPowerUpSFX: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}

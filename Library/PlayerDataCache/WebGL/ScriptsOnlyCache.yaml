@@ -474,7 +474,7 @@ ScriptsOnlyBuild:
     className: ChromaticAberration
   - hash:
       serializedVersion: 2
-      Hash: 594aab8657210552b6c60260d8231872
+      Hash: 39ac6796e1d53b007d9c17ec17fcab1f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController

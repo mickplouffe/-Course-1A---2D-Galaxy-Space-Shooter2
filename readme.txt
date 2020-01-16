@@ -1,8 +1,6 @@
 Hi! 
 There is some change I made. Since lot in the course is challenge. I made some things as mine.
 
-NOTE: I just saw that the damage visualisation on the Player Ship is not implemanted. I will Push it again later.
-
 1- I haven't applied the code to make the warp/tp effect when the "player ship" pass the X borders. I do not feel like it adds anything to the gameplay.
 1.1- I code it, but put it in comment to disable it.
 

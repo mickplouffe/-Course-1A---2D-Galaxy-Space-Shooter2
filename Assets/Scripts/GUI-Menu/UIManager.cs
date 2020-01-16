@@ -1,18 +1,19 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.PostProcessing;
 
 
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] GameManager _gameManager;
-    [SerializeField] Text _scoreText;
-    [SerializeField] Text _gameOverText;
-    [SerializeField] Text _restartInfo_Text;
+    [SerializeField] Text _scoreText, _gameOverText, _restartInfo_Text, _bootsRemaning_Text, _amunitionCharger_Text;
     [SerializeField] Canvas _pauseMenu;
     [SerializeField] Sprite[] _liveSprites;
     [SerializeField] Image _livesImg;
+    [SerializeField] Camera _mainCamera;
 
     void Start()
     {
@@ -28,6 +29,39 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log(currentLives);
         _livesImg.sprite = _liveSprites[currentLives];
+    }
+
+    public void UpdateBoost(float boostRemaining, bool isRecharging)
+    {
+        _bootsRemaning_Text.text = "Boost: " + boostRemaining + "%";
+        if (isRecharging)
+        {
+            _bootsRemaning_Text.color = Color.red;
+        }
+        else
+        {
+            _bootsRemaning_Text.color = Color.white;
+        }
+    }
+
+    public void UpdateAmunitionCharger(float remainingBullet)
+    {
+        remainingBullet = Mathf.RoundToInt((remainingBullet / 15) * 100);
+        _amunitionCharger_Text.text = "Laser: " +remainingBullet + "%";
+
+        if (remainingBullet <= 0)
+        {
+            _amunitionCharger_Text.color = Color.red;
+        }
+        else
+        {
+            _amunitionCharger_Text.color = Color.white;
+        }
+    }
+
+    public void ScreenShake()
+    {
+        _mainCamera.GetComponent<Animator>().Play("MainCameraShake", -1, 0f);
     }
 
     public void GameOver()
@@ -66,5 +100,4 @@ public class UIManager : MonoBehaviour
          Application.Quit();
 #endif
     }
-
 }

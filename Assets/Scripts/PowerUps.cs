@@ -3,6 +3,7 @@
 public class PowerUps : MonoBehaviour
 {
     [SerializeField] float _fallingSpeed = 1;
+    //[Range(0.0f, 1.0f)] public float _spawnChanceRate = 1;
     PlayerController _player;
     [SerializeField] AudioClip _getPowerUpSFX;
 
@@ -43,6 +44,12 @@ public class PowerUps : MonoBehaviour
             _player.SetPowerUp("TrpShot");
         }
 
+        if (gameObject.name.Contains("PowerUp_LargeShot"))
+        {
+            Debug.Log("PowerUp - Large Shot Obtain");
+            _player.SetPowerUp("LrgShot");
+        }
+
         if (gameObject.name.Contains("PowerUp_SpeedShot"))
         {
             Debug.Log("PowerUp - Speed Shot Obtain");
@@ -53,6 +60,19 @@ public class PowerUps : MonoBehaviour
         {
             Debug.Log("PowerUp - Shield Obtain");
             _player._isShieldOn = true;
+            _player._shieldHitPoints = 3;
+        }
+
+        if (gameObject.name.Contains("PowerUp_Health_Up"))
+        {
+            Debug.Log("PowerUp - Health Regain");
+            _player.TakeHeal(1);
+        }
+
+        if (gameObject.name.Contains("PowerUp_MunitionCharger"))
+        {
+            Debug.Log("PowerUp - Munition Charger");
+            _player.RefillMunition();
         }
 
         if (_getPowerUpSFX != null)
