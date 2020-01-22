@@ -4853,6 +4853,53 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &844669361807276988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5634103423541764275}
+  - component: {fileID: 4264409311789974291}
+  m_Layer: 0
+  m_Name: MagneticPowerUpField
+  m_TagString: PlayerMagneticField
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5634103423541764275
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844669361807276988}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_Children: []
+  m_Father: {fileID: 8271452153412264580}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &4264409311789974291
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844669361807276988}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2.6549869
 --- !u!1 &2072965681271310995
 GameObject:
   m_ObjectHideFlags: 0
@@ -5066,6 +5113,7 @@ GameObject:
   - component: {fileID: 8271452153412264586}
   - component: {fileID: 5048565052950230128}
   - component: {fileID: 8271452153412264581}
+  - component: {fileID: 337242346}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5089,6 +5137,7 @@ Transform:
   - {fileID: 3349914590514612078}
   - {fileID: 7422027931267400897}
   - {fileID: 552391687}
+  - {fileID: 5634103423541764275}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5307,13 +5356,16 @@ MonoBehaviour:
   _boostCurrentCharge: 100
   _boostChargingRate: 5
   _boostDechargingRate: 20
+  _amunitionCharger: 15
   _lifePoints: 3
   _score: 0
+  _tempLifePoints: 0
   _isBoosting: 0
   _boostRecharging: 0
   _fireRate: 0.4
   _isShieldOn: 0
   currentAmunition: 0
+  _shieldHitPoints: 3
   _munitionsArr:
   - {fileID: 3518475414977323468, guid: aa8cfcb089d5bc449a7abab27068b59f, type: 3}
   - {fileID: 6329952702939807404, guid: c3c448fe0b13eb34b9371ecae63abfd2, type: 3}
@@ -5325,6 +5377,26 @@ MonoBehaviour:
   _damaged1: {fileID: 7333047005292410303}
   _damaged2: {fileID: 2072965681271310995}
   _rechargingEffect: {fileID: 552391686}
+  _magneticField: {fileID: 844669361807276988}
+--- !u!95 &337242346
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8271452153412264585}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 669c52512fc6136458dfdaf1189246c4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8740573399626453391
 GameObject:
   m_ObjectHideFlags: 0

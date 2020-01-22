@@ -2,7 +2,7 @@
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] float _speed = 1;
+    [SerializeField] float _speed = 1, _timeToDie = 10;
     PlayerController _player;
     [SerializeField] GameObject _enemyExplosion;
 
@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
         }
 
         //Will destroy this gObj if not acheive other criteria in Destruction()
-        Destroy(gameObject, 10f);
+        Destroy(gameObject, _timeToDie);
     }
 
     void Update()

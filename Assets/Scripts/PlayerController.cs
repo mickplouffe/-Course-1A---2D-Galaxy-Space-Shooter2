@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float _speedHori = 10, _speedVert = 10, _powerUpCooldown = 5, _defaultFireRate, _boostBy = 2, _boostCurrentCharge = 100;
-    [SerializeField] float _boostChargingRate = 5, _boostDechargingRate = 20, _amunitionCharger = 15;
+    [SerializeField] float _speedHori = 10, _speedVert = 10, _powerUpCooldown = 5, _defaultFireRate, _boostBy = 2, _energyCurrentCharge = 100;
+    [SerializeField] float _energyChargingRate = 5, _boostDechargingRate = 10, _magnetizeDechargingRate = 10, _amunitionCharger = 15;
     [SerializeField] int _lifePoints = 3, _score, _tempLifePoints;
-    [SerializeField] bool _isBoosting, _boostRecharging;
+    [SerializeField] bool _isBoosting, _isMagneticFieldOn, _energyRecharging;
     UIManager _uiManager;
     public float _fireRate = .4f;
     public bool _isShieldOn;
@@ -14,15 +14,14 @@ public class PlayerController : MonoBehaviour
     float _canFire = 0;
     bool _routinePowerDownRunning, _routineSlowDownRunning;
     [SerializeField] GameObject[] _munitionsArr;
-    [SerializeField] GameObject _activeAmunitions, _shield, _explosion, _damaged1, _damaged2, _rechargingEffect;
+    [SerializeField] GameObject _activeAmunitions, _shield, _explosion, _damaged1, _damaged2, _rechargingEffect, _magneticField;
     SpawnerManager _spawnerManager;
 
     // Start is called before the first frame update
     void Start()
     {
         _defaultFireRate = _fireRate;
-   
-        transform.position = new Vector3(0, -3, 0);
+
         _spawnerManager = GameObject.Find("SpawnerManager").GetComponent<SpawnerManager>();
         if (_spawnerManager == null)
         {
@@ -45,6 +44,9 @@ public class PlayerController : MonoBehaviour
         PlayerFiring();
         Amunitions(currentAmunition);
         CalculateShield();
+        MagnetizePowerUps();
+        CalculateEnergy();
+
     }
 
     private void Mouvements()
@@ -53,6 +55,8 @@ public class PlayerController : MonoBehaviour
         CalculateBoost();
 
         float horizontalInput = Input.GetAxis("Horizontal"), verticalInput = Input.GetAxis("Vertical");
+
+        GetComponent<Animator>().SetFloat("xDirection", horizontalInput);
 
         transform.Translate(new Vector3(horizontalInput * _speedHori * _boostBy, verticalInput * _speedVert * _boostBy, 0) * Time.deltaTime);
 
@@ -76,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
         #endregion
 
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -9, 9), Mathf.Clamp(transform.position.y, -3.8f, 3), 0);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -9, 9), Mathf.Clamp(transform.position.y, -3.8f, 6), 0);
         if (transform.position.y > 5.5)
         {
             transform.Translate(new Vector3(horizontalInput , 0, 0) * Time.deltaTime);
@@ -85,43 +89,31 @@ public class PlayerController : MonoBehaviour
 
     private void CalculateBoost()
     {
-        if (_boostCurrentCharge < 0)
+        if (_energyCurrentCharge < 0)
         {
-            _boostCurrentCharge = 0;
-            _boostRecharging = true;
-            _rechargingEffect.SetActive(_boostRecharging);
+            _energyCurrentCharge = 0;
+            _energyRecharging = true;
+            _rechargingEffect.SetActive(_energyRecharging);
 
         }
-        else if (_boostCurrentCharge > 100)
+        else if (_energyCurrentCharge > 100)
         {
-            _boostCurrentCharge = 100;
-            _boostRecharging = false;
-            _rechargingEffect.SetActive(_boostRecharging);
+            _energyCurrentCharge = 100;
+            _energyRecharging = false;
+            _rechargingEffect.SetActive(_energyRecharging);
 
         }
 
-        if (Input.GetAxis("Fire3") == 1 && _isBoosting == false && _boostCurrentCharge > 0 && _boostRecharging == false)
+        if (Input.GetAxis("Fire3") == 1 && _isBoosting == false && _energyCurrentCharge > 0 && _energyRecharging == false)
         {
             _isBoosting = true;
             _boostBy = 2;
         }
-        else if ((Input.GetAxis("Fire3") == 0 || _boostCurrentCharge <= 0) && _isBoosting == true)
+        else if ((Input.GetAxis("Fire3") == 0 || _energyCurrentCharge <= 0) && _isBoosting == true)
         {
             _isBoosting = false;
             _boostBy = 1;
         }
-
-        if (_isBoosting && _boostCurrentCharge > 0 && _boostRecharging == false)
-        {
-            _boostCurrentCharge -= _boostDechargingRate * Time.deltaTime;
-        }
-        else if (_isBoosting == false && _boostCurrentCharge < 100)
-        {
-            _boostCurrentCharge += _boostChargingRate * Time.deltaTime;
-        }
-
-        _uiManager.UpdateBoost(Mathf.RoundToInt(_boostCurrentCharge), _boostRecharging);
-
 
     }
 
@@ -160,10 +152,45 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void  RefillMunition()
+    public void RefillMunition()
     {
         _amunitionCharger = 15; //variable COnstante
         _uiManager.UpdateAmunitionCharger(_amunitionCharger);
+    }
+
+    public void MagnetizePowerUps()
+    {
+        if (Input.GetKeyDown(KeyCode.C) && _energyCurrentCharge > 0 && _energyRecharging == false)
+        {
+            _magneticField.SetActive(true);
+            _isMagneticFieldOn = true;
+
+        }
+        else if (Input.GetKeyUp(KeyCode.C) || _energyRecharging == true)
+        {
+            _magneticField.SetActive(false);
+            _isMagneticFieldOn = false;
+
+        }
+    }
+
+    private void CalculateEnergy()
+    {
+        if (_isBoosting && _energyCurrentCharge > 0 && _energyRecharging == false)
+        {
+            _energyCurrentCharge -= _boostDechargingRate * Time.deltaTime;
+        }
+        else if (_isBoosting == false && _energyCurrentCharge < 100)
+        {
+            _energyCurrentCharge += _energyChargingRate * Time.deltaTime;
+        }
+
+        if (_isMagneticFieldOn)
+        {
+            _energyCurrentCharge -= _magnetizeDechargingRate * Time.deltaTime;
+        }
+
+        _uiManager.UpdateEnergy(Mathf.RoundToInt(_energyCurrentCharge), _energyRecharging);
     }
 
     public void UpdateScore(int Addscore)
@@ -182,7 +209,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_isShieldOn == false)
         {
-            Debug.LogWarning("TakeDamage Update");
+            Debug.Log("Player taking Damage");
 
             _lifePoints -= dmg;
             _uiManager.UpdateLives(_lifePoints);
@@ -198,9 +225,9 @@ public class PlayerController : MonoBehaviour
         else
         {
             _shieldHitPoints -= dmg;
+            Debug.Log("Shield taking Damage");
             CalculateShield();
         }
-        Debug.LogWarning("TakeDamage Finished");
     }
 
     public void TakeHeal(int healAmount)

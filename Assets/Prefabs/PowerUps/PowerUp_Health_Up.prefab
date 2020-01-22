@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3861152382256914920}
   - component: {fileID: 5455971837124611173}
   - component: {fileID: 3861152382256914927}
+  - component: {fileID: -8711447510215816122}
   m_Layer: 0
   m_Name: PowerUp_Health_Up
   m_TagString: PowerUp
@@ -131,4 +132,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fallingSpeed: 1.2
+  _timeToDie: 20
   _getPowerUpSFX: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
+--- !u!50 &-8711447510215816122
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3861152382256914924}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

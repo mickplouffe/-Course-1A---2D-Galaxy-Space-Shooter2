@@ -33,6 +33,8 @@ public class Asteroid : MonoBehaviour
         {
             Explode();
             Destroy(other.gameObject);
+            _spawnerManager.StartGame();
+
             Destroy(gameObject);
 
         }
@@ -41,10 +43,10 @@ public class Asteroid : MonoBehaviour
         {
             _player.TakeDamage();
             Explode();
+            _spawnerManager.StartGame();
+
             Destroy(gameObject);
         }
-
-        _spawnerManager.StartGame();
     }
 
     private void Explode()

@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEngine.Rendering.PostProcessing;
-
-
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] GameManager _gameManager;
-    [SerializeField] Text _scoreText, _gameOverText, _restartInfo_Text, _bootsRemaning_Text, _amunitionCharger_Text;
+    [SerializeField] Text _scoreText, _gameOverText, _restartInfo_Text, _energyRemaning_Text, _amunitionCharger_Text;
     [SerializeField] Canvas _pauseMenu;
     [SerializeField] Sprite[] _liveSprites;
     [SerializeField] Image _livesImg;
@@ -31,16 +27,16 @@ public class UIManager : MonoBehaviour
         _livesImg.sprite = _liveSprites[currentLives];
     }
 
-    public void UpdateBoost(float boostRemaining, bool isRecharging)
+    public void UpdateEnergy(float energyRemaining, bool isRecharging)
     {
-        _bootsRemaning_Text.text = "Boost: " + boostRemaining + "%";
+        _energyRemaning_Text.text = "Boost: " + energyRemaining + "%";
         if (isRecharging)
         {
-            _bootsRemaning_Text.color = Color.red;
+            _energyRemaning_Text.color = Color.red;
         }
         else
         {
-            _bootsRemaning_Text.color = Color.white;
+            _energyRemaning_Text.color = Color.white;
         }
     }
 

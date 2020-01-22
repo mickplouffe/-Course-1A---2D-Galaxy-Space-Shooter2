@@ -2,16 +2,19 @@
 
 public class PowerUps : MonoBehaviour
 {
-    [SerializeField] float _fallingSpeed = 1;
+    [SerializeField] float _fallingSpeed = 1, _timeToDie = 20;
     //[Range(0.0f, 1.0f)] public float _spawnChanceRate = 1;
     PlayerController _player;
     [SerializeField] AudioClip _getPowerUpSFX;
+    [SerializeField] bool _isMagnetized;
+    Vector2 PlayerDirection;
+    Rigidbody2D rb;
 
     void Start()
     {
         Debug.Log("PowerUp" + gameObject.name +  " spawned.");
 
-        Destroy(gameObject, 20f);
+        Destroy(gameObject, _timeToDie);
 
         _player = GameObject.Find("Player").GetComponent<PlayerController>();
         if (_player == null)
@@ -19,20 +22,48 @@ public class PowerUps : MonoBehaviour
             Debug.LogError("Player not found!");
             //Application.Quit();
         }
+        rb = GetComponent<Rigidbody2D>();
+
     }
 
     void Update()
     {
-        transform.Translate(Vector3.down * _fallingSpeed * Time.deltaTime);
+        MagnetizedByPlayer();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-            if (other.tag == "Player")
-            {
-            _player.UpdateScore(5);
-            PowerUp();
-            }
+        if (other.tag == "Player")
+        {
+        _player.UpdateScore(5);
+        PowerUp();
+        }
+
+        if (other.tag == "PlayerMagneticField")
+        {
+            _isMagnetized = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "PlayerMagneticField")
+        {
+            _isMagnetized = false;
+        }
+    }
+
+    private void MagnetizedByPlayer()
+    {
+        if (_isMagnetized)
+        {
+            PlayerDirection = -(transform.position - _player.transform.position).normalized;
+            rb.velocity = new Vector2(PlayerDirection.x, PlayerDirection.y -_fallingSpeed) * 200f * (Time.deltaTime);
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, -_fallingSpeed);
+        }
     }
 
     private void PowerUp()
