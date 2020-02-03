@@ -3,7 +3,7 @@
 public class Asteroid : MonoBehaviour
 {
     PlayerController _player;
-    SpawnerManager _spawnerManager;
+    SpawnManager _spawnManager;
     [SerializeField] GameObject _explosion;
     
     private void Start()
@@ -14,15 +14,15 @@ public class Asteroid : MonoBehaviour
             Debug.LogError("Player not found!");
         }
 
-        _spawnerManager = GameObject.Find("SpawnerManager").GetComponent<SpawnerManager>();
+        _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 
-        if (_spawnerManager == null)
+        if (_spawnManager == null)
         {
             Debug.LogError("Spawner Manager not found!");
         }
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.Rotate(0, 0, .3f);
     }
@@ -33,7 +33,7 @@ public class Asteroid : MonoBehaviour
         {
             Explode();
             Destroy(other.gameObject);
-            _spawnerManager.StartGame();
+            _spawnManager.NextWave();
 
             Destroy(gameObject);
 
@@ -43,7 +43,7 @@ public class Asteroid : MonoBehaviour
         {
             _player.TakeDamage();
             Explode();
-            _spawnerManager.StartGame();
+            _spawnManager.NextWave();
 
             Destroy(gameObject);
         }

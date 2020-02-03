@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float _speedHori = 10, _speedVert = 10, _powerUpCooldown = 5, _defaultFireRate, _boostBy = 2, _energyCurrentCharge = 100;
-    [SerializeField] float _energyChargingRate = 5, _boostDechargingRate = 10, _magnetizeDechargingRate = 10, _amunitionCharger = 15;
+    [SerializeField] float _energyChargingRate = 5, _boostDechargingRate = 10, _magnetizeDechargingRate = 10, _amunitionCharger = 15, _maxAmunitionCharger = 15;
     [SerializeField] int _lifePoints = 3, _score, _tempLifePoints;
     [SerializeField] bool _isBoosting, _isMagneticFieldOn, _energyRecharging;
     UIManager _uiManager;
@@ -15,14 +15,15 @@ public class PlayerController : MonoBehaviour
     bool _routinePowerDownRunning, _routineSlowDownRunning;
     [SerializeField] GameObject[] _munitionsArr;
     [SerializeField] GameObject _activeAmunitions, _shield, _explosion, _damaged1, _damaged2, _rechargingEffect, _magneticField;
-    SpawnerManager _spawnerManager;
+    SpawnManager _spawnerManager;
 
     // Start is called before the first frame update
     void Start()
     {
         _defaultFireRate = _fireRate;
+        _amunitionCharger = _maxAmunitionCharger;
 
-        _spawnerManager = GameObject.Find("SpawnerManager").GetComponent<SpawnerManager>();
+        _spawnerManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         if (_spawnerManager == null)
         {
             Debug.LogError("Spawner Manager not found!");
@@ -39,7 +40,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         Mouvements();
         PlayerFiring();
         Amunitions(currentAmunition);
@@ -83,7 +84,7 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -9, 9), Mathf.Clamp(transform.position.y, -3.8f, 6), 0);
         if (transform.position.y > 5.5)
         {
-            transform.Translate(new Vector3(horizontalInput , 0, 0) * Time.deltaTime);
+            transform.Translate(new Vector3(horizontalInput, 0, 0) * Time.deltaTime);
         }
     }
 
@@ -133,12 +134,11 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(nameof(SlowDownRoutine));
         }
-        
+
     }
 
     private void PlayerFiring()
     {
-       
         float firingInput = Input.GetAxis("Fire1");
         if ((firingInput == 1 || Input.GetKey(KeyCode.Space)) && Time.time > _canFire)
         {
@@ -156,6 +156,16 @@ public class PlayerController : MonoBehaviour
     {
         _amunitionCharger = 15; //variable COnstante
         _uiManager.UpdateAmunitionCharger(_amunitionCharger);
+    }
+
+    public void RefillMunition(int number)
+    {
+        if (_amunitionCharger < _maxAmunitionCharger)
+        {
+            _amunitionCharger += number;
+            _uiManager.UpdateAmunitionCharger(_amunitionCharger);
+
+        }
     }
 
     public void MagnetizePowerUps()
@@ -275,9 +285,6 @@ public class PlayerController : MonoBehaviour
                 _isShieldOn = false;
                 break;
         }
-
-
-
     }
 
     private void DeathProcedure()
@@ -325,6 +332,17 @@ public class PlayerController : MonoBehaviour
             _fireRate = 0.1f;
         }
 
+        if (upgrade == "hmgShot")
+        {
+            if (_routinePowerDownRunning)
+            {
+                StopCoroutine(nameof(PowerDownRoutine));
+                _routinePowerDownRunning = false;
+            }
+            StartCoroutine(nameof(PowerDownRoutine));
+            currentAmunition = 3;
+        }
+
     }
 
     private void GraphicDmg(int _lifePoints)
@@ -342,6 +360,15 @@ public class PlayerController : MonoBehaviour
             case 1:
                 _damaged2.gameObject.SetActive(true);
                 break;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "EnemyBullet")
+        {
+            Destroy(other.gameObject);
+            TakeDamage();
         }
     }
 

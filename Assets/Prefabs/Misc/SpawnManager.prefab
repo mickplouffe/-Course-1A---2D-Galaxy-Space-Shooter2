@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5272852082704911951
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5272852082704911944}
+  m_Layer: 0
+  m_Name: EnemyContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5272852082704911944
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5272852082704911951}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6695532708706862238}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5272852083086907892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5272852083086907893}
+  m_Layer: 0
+  m_Name: PickupContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5272852083086907893
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5272852083086907892}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6695532708706862238}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6695532708706862236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6695532708706862238}
+  - component: {fileID: 6695532708706862237}
+  m_Layer: 0
+  m_Name: SpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6695532708706862238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6695532708706862236}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5272852082704911944}
+  - {fileID: 5272852083086907893}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6695532708706862237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6695532708706862236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90535400c3e298c4bbb4159f46ee8036, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isSpawningMaster: 0
+  _isSpawningEnemy: 0
+  _isSpawningPickup: 0
+  _minEnemySpawnDelay: 0.05
+  _maxEnemySpawnDelay: 3
+  _minPickupSpawnDelay: 0.05
+  _maxPickupSpawnDelay: 2
+  _enemyToSpawn:
+  - {fileID: 846833392427496889, guid: 672dffb0705d4ac438486aac95f92b31, type: 3}
+  - {fileID: 5648943461604970391, guid: fa0ed4e93efba704dbdf64c824aee86e, type: 3}
+  - {fileID: 1169700514471180022, guid: 8f31b8b7753623a4b91413f0896c8bc1, type: 3}
+  - {fileID: 846833392427496889, guid: c89d48ef8ed95084dafaaba80e1da319, type: 3}
+  - {fileID: 3138774426486571047, guid: 73890accd0284e14aaa32f3b13fd78fb, type: 3}
+  _pickupToSpawn:
+  - {fileID: 3861152382256914924, guid: 638a692d4ab73504f94ab681d8bbe47e, type: 3}
+  - {fileID: 2271356779775424935, guid: df7b5283c5c1c6b438247fa4454f4366, type: 3}
+  - {fileID: 7016335839481337550, guid: a27101086e93944499442bee55761655, type: 3}
+  - {fileID: 7528212259958092364, guid: c0a4cd784fb2af543afdcf24a850c615, type: 3}
+  - {fileID: 940359037890032953, guid: b50bd581742ce1246a99b728f071254d, type: 3}
+  - {fileID: 1361912601488221741, guid: 7072497fca031ce4ba48057bea61203c, type: 3}
+  - {fileID: 7016335839481337550, guid: 17df5e7d7c9c4ae4697f6f151273e490, type: 3}
+  _enemyContainer: {fileID: 5272852082704911951}
+  _pickupContainer: {fileID: 5272852083086907892}

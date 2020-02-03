@@ -2,8 +2,9 @@
 
 public class Bullets : MonoBehaviour
 {
-    [SerializeField] float _bulletSpeed = 1;
-    [SerializeField] bool isRotating;
+    [SerializeField] float _timeToDie = 20;
+    public float _bulletSpeed = 1;
+    //[SerializeField] bool isRotating;
     [SerializeField] AudioClip _amunitionSFX;
 
     void Start()
@@ -11,7 +12,7 @@ public class Bullets : MonoBehaviour
         AudioSource.PlayClipAtPoint(_amunitionSFX, transform.position, 2);
 
         //Will destroy this gObj if not acheive other criteria in Destruction()
-        Destroy(gameObject, 10);
+        Destroy(gameObject, _timeToDie);
     }
 
     void Update()
@@ -27,7 +28,7 @@ public class Bullets : MonoBehaviour
 
     private void Destruction()
     {
-        if (transform.position.y > 8)
+        if (transform.position.y > 12 || transform.position.y < -12 || transform.position.x > 16 || transform.position.x < -16)
         {
             Destroy(gameObject);
         }

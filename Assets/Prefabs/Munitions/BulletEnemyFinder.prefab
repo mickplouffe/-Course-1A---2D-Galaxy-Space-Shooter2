@@ -118,7 +118,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5454562438160062216}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletSpeed: 15
-  isRotating: 1
+  _timeToDie: 60
   _amunitionSFX: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
 --- !u!114 &1424101324038700930
 MonoBehaviour:
@@ -158,3 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af6479f6fad1a6c42b3c2814e9b74815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Target: {fileID: 0}
+  MoveSpeed: 30
+  RotateSpeed: 10000

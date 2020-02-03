@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] GameManager _gameManager;
-    [SerializeField] Text _scoreText, _gameOverText, _restartInfo_Text, _energyRemaning_Text, _amunitionCharger_Text;
+    [SerializeField] GameObject _spawnManager;
+    [SerializeField] Text _scoreText, _gameOverText, _gameWinText, _restartInfo_Text, _energyRemaning_Text, _amunitionCharger_Text;
+    [SerializeField] TextMeshProUGUI _gameEvents_txt;
     [SerializeField] Canvas _pauseMenu;
     [SerializeField] Sprite[] _liveSprites;
     [SerializeField] Image _livesImg;
@@ -14,6 +17,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         _scoreText.text = "Score: " + 0;
+        UpdateWave();
     }
 
     public void UpdateScore(int playerScore)
@@ -29,7 +33,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateEnergy(float energyRemaining, bool isRecharging)
     {
-        _energyRemaning_Text.text = "Boost: " + energyRemaining + "%";
+        _energyRemaning_Text.text = "Energy: " + energyRemaining + "%";
         if (isRecharging)
         {
             _energyRemaning_Text.color = Color.red;
@@ -55,6 +59,30 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void UpdateWave()
+    {
+        if (_spawnManager.GetComponent<SpawnManager>().GetWave() <= 0)
+        {
+            _gameEvents_txt.text = "Prepare yourself!";
+            _gameEvents_txt.GetComponent<Animator>().Play("WaveFade", -1, 0f);
+
+        }
+        else if (_spawnManager.GetComponent<SpawnManager>().GetWave() < 3)
+        {
+            _gameEvents_txt.text = "Wave " + _spawnManager.GetComponent<SpawnManager>().GetWave();
+            _gameEvents_txt.GetComponent<Animator>().Play("WaveFade", -1, 0f);
+
+
+        }
+        else if (_spawnManager.GetComponent<SpawnManager>().GetWave() == 3)
+        {
+            _gameEvents_txt.text = "BOSS WAVE!";
+            _gameEvents_txt.GetComponent<Animator>().Play("WaveFade", -1, 0f);
+
+        }
+
+    }
+
     public void ScreenShake()
     {
         _mainCamera.GetComponent<Animator>().Play("MainCameraShake", -1, 0f);
@@ -65,6 +93,15 @@ public class UIManager : MonoBehaviour
         _gameManager.GameOver();
         _gameOverText.gameObject.SetActive(true);
         _restartInfo_Text.gameObject.SetActive(true);
+
+    }
+
+    public void GameWin()
+    {
+        _gameManager.GameOver();
+        _restartInfo_Text.gameObject.SetActive(true);
+        _gameWinText.gameObject.SetActive(true);
+
 
     }
 

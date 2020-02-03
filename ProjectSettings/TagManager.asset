@@ -6,8 +6,10 @@ TagManager:
   tags:
   - PlayerBullet
   - Enemy
-  - PowerUp
   - PlayerMagneticField
+  - Pickup
+  - EnemyBullet
+  - Boss
   layers:
   - Default
   - TransparentFX
