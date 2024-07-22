@@ -13,4 +13,4 @@ NOTE: I just saw that the damage visualisation on the Player Ship is not implema
 4- The meteorite as been added as the course says, but I would have change it for a screen to pess "fire" to start. Then the metorite spawn more frequantly than enemy ships.
 
 
-If there is any change or way to aproach a problem that should be concidered, even if is pass the test, Please feel free the comment so I can learn from it.
+If there is any change or way to aproach a problem that should be concidered, even if is pass the test, Please point it out, so I can learn from it.
