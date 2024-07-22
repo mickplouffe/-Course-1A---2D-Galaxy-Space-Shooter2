@@ -1,5 +1,5 @@
 Hi! 
-There is some change I made. Since lot in the course is challenge. I made some things as mine.
+There is some change I made. Since a lot in the course is meant to be a challenge. I made some things as mine.
 
 NOTE: I just saw that the damage visualisation on the Player Ship is not implemanted. I will Push it again later.
 
